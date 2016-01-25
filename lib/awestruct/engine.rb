@@ -369,7 +369,8 @@ module Awestruct
           generate_page( page )
         end
       rescue Exception => e
-        return_value = [Awestruct::ExceptionHelper::EXITCODES[:generation_error]]
+        puts e.message
+	return_value = [Awestruct::ExceptionHelper::EXITCODES[:generation_error]]
       end
 
       if return_value.nil? || return_value.include?(Awestruct::ExceptionHelper::EXITCODES[:generation_error])
