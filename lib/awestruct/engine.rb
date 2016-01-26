@@ -389,8 +389,14 @@ module Awestruct
       if ( produce_output )
         $LOG.debug "Generating: #{generated_path}" if $LOG.debug? && config.verbose
 
-        c = page.rendered_content
-        c = site.engine.pipeline.apply_transformers( site, page, c )
+        begin
+            c = page.rendered_content
+            c = site.engine.pipeline.apply_transformers( site, page, c )
+        rescue Exception => e
+            puts "::ERROR DURING GENERATION::"
+            puts e.message
+            puts "::END ERROR::"
+        end
 
         generated_path = File.join( site.config.output_dir, page.output_path )
 	puts "Generating: #{generated_path}"
