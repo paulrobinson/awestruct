@@ -368,11 +368,16 @@ module Awestruct
         return_value = Parallel.map(@site.pages, site.generation) do |page|
           generate_page( page )
         end
+	puts 'return_value from Parallel.map in generate_output:'
+	puts return_value
       rescue Exception => e
+	puts 'Exception caught in generate_output:'
         puts e.message
 	return_value = [Awestruct::ExceptionHelper::EXITCODES[:generation_error]]
       end
 
+      puts 'return_value:'
+      puts return_value
       if return_value.nil? || return_value.include?(Awestruct::ExceptionHelper::EXITCODES[:generation_error])
         $LOG.error 'An error occurred during output generation, all pages may not have completed during generation'
         exit Awestruct::ExceptionHelper::EXITCODES[:generation_error]
@@ -381,7 +386,8 @@ module Awestruct
     end
 
     def generate_page(page, produce_output=true)
-      if ( produce_output )
+      if ( produce_output )a
+	puts "Generating: #{generated_path}"
         $LOG.debug "Generating: #{generated_path}" if $LOG.debug? && config.verbose
 
         c = page.rendered_content
