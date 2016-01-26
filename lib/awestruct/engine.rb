@@ -387,13 +387,13 @@ module Awestruct
 
     def generate_page(page, produce_output=true)
       if ( produce_output )
-	puts "Generating: #{generated_path}"
         $LOG.debug "Generating: #{generated_path}" if $LOG.debug? && config.verbose
 
         c = page.rendered_content
         c = site.engine.pipeline.apply_transformers( site, page, c )
 
         generated_path = File.join( site.config.output_dir, page.output_path )
+	puts "Generating: #{generated_path}"
         FileUtils.mkdir_p( File.dirname( generated_path ) )
 
         File.open( generated_path, 'wb' ) do |file|
