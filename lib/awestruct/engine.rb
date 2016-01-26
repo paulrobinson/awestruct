@@ -386,7 +386,7 @@ module Awestruct
     end
 
     def generate_page(page, produce_output=true)
-      if ( produce_output )a
+      if ( produce_output )
 	puts "Generating: #{generated_path}"
         $LOG.debug "Generating: #{generated_path}" if $LOG.debug? && config.verbose
 
